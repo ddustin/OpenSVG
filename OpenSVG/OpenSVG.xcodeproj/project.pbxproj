@@ -23,6 +23,7 @@
 		58A3E2B316A52D9C000C3090 /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 58A3E2B216A52D9C000C3090 /* Shader.fsh */; };
 		58A3E2B516A52D9C000C3090 /* Shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 58A3E2B416A52D9C000C3090 /* Shader.vsh */; };
 		58A3E2B816A52D9C000C3090 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58A3E2B716A52D9C000C3090 /* ViewController.m */; };
+		58A3E2BF16A5344B000C3090 /* pg1.svg in Resources */ = {isa = PBXBuildFile; fileRef = 58A3E2BE16A5344B000C3090 /* pg1.svg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +48,7 @@
 		58A3E2B416A52D9C000C3090 /* Shader.vsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = Shader.vsh; path = Shaders/Shader.vsh; sourceTree = "<group>"; };
 		58A3E2B616A52D9C000C3090 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		58A3E2B716A52D9C000C3090 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		58A3E2BE16A5344B000C3090 /* pg1.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = pg1.svg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,7 +70,9 @@
 		58A3E28116A52D9C000C3090 = {
 			isa = PBXGroup;
 			children = (
+				58A3E2C016A53450000C3090 /* Resources */,
 				58A3E29A16A52D9C000C3090 /* OpenSVG */,
+				58A3E29B16A52D9C000C3090 /* Supporting Files */,
 				58A3E28F16A52D9C000C3090 /* Frameworks */,
 				58A3E28D16A52D9C000C3090 /* Products */,
 			);
@@ -97,15 +101,10 @@
 		58A3E29A16A52D9C000C3090 /* OpenSVG */ = {
 			isa = PBXGroup;
 			children = (
-				58A3E2A316A52D9C000C3090 /* AppDelegate.h */,
-				58A3E2A416A52D9C000C3090 /* AppDelegate.m */,
-				58A3E2AC16A52D9C000C3090 /* MainStoryboard_iPhone.storyboard */,
-				58A3E2AF16A52D9C000C3090 /* MainStoryboard_iPad.storyboard */,
-				58A3E2B216A52D9C000C3090 /* Shader.fsh */,
-				58A3E2B416A52D9C000C3090 /* Shader.vsh */,
-				58A3E2B616A52D9C000C3090 /* ViewController.h */,
-				58A3E2B716A52D9C000C3090 /* ViewController.m */,
-				58A3E29B16A52D9C000C3090 /* Supporting Files */,
+				58A3E2C116A5345C000C3090 /* AppDelegate */,
+				58A3E2C216A53462000C3090 /* MainStoryboard */,
+				58A3E2C316A5346A000C3090 /* Shader */,
+				58A3E2C416A53471000C3090 /* ViewController */,
 			);
 			path = OpenSVG;
 			sourceTree = "<group>";
@@ -122,6 +121,52 @@
 				58A3E2AA16A52D9C000C3090 /* Default-568h@2x.png */,
 			);
 			name = "Supporting Files";
+			path = OpenSVG;
+			sourceTree = "<group>";
+		};
+		58A3E2C016A53450000C3090 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				58A3E2BE16A5344B000C3090 /* pg1.svg */,
+			);
+			name = Resources;
+			path = OpenSVG;
+			sourceTree = "<group>";
+		};
+		58A3E2C116A5345C000C3090 /* AppDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				58A3E2A316A52D9C000C3090 /* AppDelegate.h */,
+				58A3E2A416A52D9C000C3090 /* AppDelegate.m */,
+			);
+			name = AppDelegate;
+			sourceTree = "<group>";
+		};
+		58A3E2C216A53462000C3090 /* MainStoryboard */ = {
+			isa = PBXGroup;
+			children = (
+				58A3E2AC16A52D9C000C3090 /* MainStoryboard_iPhone.storyboard */,
+				58A3E2AF16A52D9C000C3090 /* MainStoryboard_iPad.storyboard */,
+			);
+			name = MainStoryboard;
+			sourceTree = "<group>";
+		};
+		58A3E2C316A5346A000C3090 /* Shader */ = {
+			isa = PBXGroup;
+			children = (
+				58A3E2B216A52D9C000C3090 /* Shader.fsh */,
+				58A3E2B416A52D9C000C3090 /* Shader.vsh */,
+			);
+			name = Shader;
+			sourceTree = "<group>";
+		};
+		58A3E2C416A53471000C3090 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				58A3E2B616A52D9C000C3090 /* ViewController.h */,
+				58A3E2B716A52D9C000C3090 /* ViewController.m */,
+			);
+			name = ViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -183,6 +228,7 @@
 				58A3E2B116A52D9C000C3090 /* MainStoryboard_iPad.storyboard in Resources */,
 				58A3E2B316A52D9C000C3090 /* Shader.fsh in Resources */,
 				58A3E2B516A52D9C000C3090 /* Shader.vsh in Resources */,
+				58A3E2BF16A5344B000C3090 /* pg1.svg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
