@@ -15,6 +15,7 @@ enum
 {
     UNIFORM_MODELVIEWPROJECTION_MATRIX,
     UNIFORM_NORMAL_MATRIX,
+    UNIFORM_COLOR,
     NUM_UNIFORMS
 };
 GLint uniforms[NUM_UNIFORMS];
@@ -79,13 +80,14 @@ GLfloat gCubeVertexData[216] =
     
     GLKMatrix4 _modelViewProjectionMatrix;
     GLKMatrix3 _normalMatrix;
+    GLKMatrix4 _modelViewProjectionMatrix2;
+    GLKMatrix3 _normalMatrix2;
     float _rotation;
     
     GLuint _vertexArray;
     GLuint _vertexBuffer;
 }
 @property (strong, nonatomic) EAGLContext *context;
-@property (strong, nonatomic) GLKBaseEffect *effect;
 
 - (void)setupGL;
 - (void)tearDownGL;
@@ -148,10 +150,6 @@ GLfloat gCubeVertexData[216] =
     
     [self loadShaders];
     
-    self.effect = [[GLKBaseEffect alloc] init];
-    self.effect.light0.enabled = GL_TRUE;
-    self.effect.light0.diffuseColor = GLKVector4Make(1.0f, 0.4f, 0.4f, 1.0f);
-    
     glEnable(GL_DEPTH_TEST);
     
     glGenVertexArraysOES(1, &_vertexArray);
@@ -176,8 +174,6 @@ GLfloat gCubeVertexData[216] =
     glDeleteBuffers(1, &_vertexBuffer);
     glDeleteVertexArraysOES(1, &_vertexArray);
     
-    self.effect = nil;
-    
     if (_program) {
         glDeleteProgram(_program);
         _program = 0;
@@ -191,8 +187,6 @@ GLfloat gCubeVertexData[216] =
     float aspect = fabsf(self.view.bounds.size.width / self.view.bounds.size.height);
     GLKMatrix4 projectionMatrix = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(65.0f), aspect, 0.1f, 100.0f);
     
-    self.effect.transform.projectionMatrix = projectionMatrix;
-    
     GLKMatrix4 baseModelViewMatrix = GLKMatrix4MakeTranslation(0.0f, 0.0f, -4.0f);
     baseModelViewMatrix = GLKMatrix4Rotate(baseModelViewMatrix, _rotation, 0.0f, 1.0f, 0.0f);
     
@@ -201,7 +195,9 @@ GLfloat gCubeVertexData[216] =
     modelViewMatrix = GLKMatrix4Rotate(modelViewMatrix, _rotation, 1.0f, 1.0f, 1.0f);
     modelViewMatrix = GLKMatrix4Multiply(baseModelViewMatrix, modelViewMatrix);
     
-    self.effect.transform.modelviewMatrix = modelViewMatrix;
+    _normalMatrix2 = GLKMatrix3InvertAndTranspose(GLKMatrix4GetMatrix3(modelViewMatrix), NULL);
+    
+    _modelViewProjectionMatrix2 = GLKMatrix4Multiply(projectionMatrix, modelViewMatrix);
     
     // Compute the model view matrix for the object rendered with ES2
     modelViewMatrix = GLKMatrix4MakeTranslation(0.0f, 0.0f, 1.5f);
@@ -222,8 +218,9 @@ GLfloat gCubeVertexData[216] =
     
     glBindVertexArrayOES(_vertexArray);
     
-    // Render the object with GLKit
-    [self.effect prepareToDraw];
+    glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _modelViewProjectionMatrix2.m);
+    glUniform4f(uniforms[UNIFORM_COLOR], 1.0f, 0.4f, 0.4f, 1.0f);
+    glUniformMatrix3fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, _normalMatrix2.m);
     
     glDrawArrays(GL_TRIANGLES, 0, 36);
     
@@ -231,6 +228,7 @@ GLfloat gCubeVertexData[216] =
     glUseProgram(_program);
     
     glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _modelViewProjectionMatrix.m);
+    glUniform4f(uniforms[UNIFORM_COLOR], 0.4f, 0.4f, 1.0f, 1.0f);
     glUniformMatrix3fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, _normalMatrix.m);
     
     glDrawArrays(GL_TRIANGLES, 0, 36);
@@ -294,6 +292,7 @@ GLfloat gCubeVertexData[216] =
     // Get uniform locations.
     uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX] = glGetUniformLocation(_program, "modelViewProjectionMatrix");
     uniforms[UNIFORM_NORMAL_MATRIX] = glGetUniformLocation(_program, "normalMatrix");
+    uniforms[UNIFORM_COLOR] = glGetUniformLocation(_program, "color");
     
     // Release vertex and fragment shaders.
     if (vertShader) {
